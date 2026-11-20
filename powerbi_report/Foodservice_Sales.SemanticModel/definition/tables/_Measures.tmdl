@@ -1,0 +1,188 @@
+table _Measures
+	lineageTag: d3fdb41f-e9d9-5bdf-679d-995b57ae2c43
+
+	/// Net revenue: quantity x price per line. Returns have negative quantity and reduce revenue.
+	measure Revenue = SUMX ( FactSales, FactSales[quantity] * FactSales[unit_price_eur] )
+		formatString: €#,##0,,.00"M"
+		displayFolder: Sales
+		lineageTag: 3e3dfd87-141c-7092-3921-7dd622a56a28
+
+	/// RELATED fetches the unit cost from DimProduct over the many-to-one relationship; SUMX evaluates it row by row.
+	measure Cost = SUMX ( FactSales, FactSales[quantity] * RELATED ( DimProduct[unit_cost_eur] ) )
+		formatString: €#,##0,,.00"M"
+		displayFolder: Sales
+		lineageTag: 9f122f44-ab30-cf84-3c63-168703adaefe
+
+	/// Gross margin in euros (revenue minus cost of goods).
+	measure 'Gross Margin' = [Revenue] - [Cost]
+		formatString: €#,##0,,.00"M"
+		displayFolder: Sales
+		lineageTag: c57c4db3-3fda-a061-c2f2-0a268143ce6f
+
+	/// DIVIDE returns BLANK instead of an error when Revenue is 0.
+	measure 'Margin %' = DIVIDE ( [Gross Margin], [Revenue] )
+		formatString: 0.0%
+		displayFolder: Sales
+		lineageTag: 0f26cf33-0d55-5afe-54e4-a45daf84cc5c
+
+	/// Number of distinct orders.
+	measure Orders = DISTINCTCOUNT ( FactSales[order_id] )
+		formatString: #,##0
+		displayFolder: Sales
+		lineageTag: 98957d82-4f31-2293-1a9c-391f7cce5d97
+
+	/// Average revenue per order.
+	measure 'Avg Order Value' = DIVIDE ( [Revenue], [Orders] )
+		formatString: €#,##0
+		displayFolder: Sales
+		lineageTag: c69457a5-5f47-4ee3-4c1b-150cb725e5a3
+
+	/// Customers with at least one order line in the current filter context.
+	measure 'Active Customers' = DISTINCTCOUNT ( FactSales[customer_id] )
+		formatString: #,##0
+		displayFolder: Customers
+		lineageTag: 9a12ca92-b97d-010c-5f58-e5fce8851b33
+
+	/// Revenue in the same period of the previous year.
+	measure 'Revenue PY' = CALCULATE ( [Revenue], SAMEPERIODLASTYEAR ( DimDate[Date] ) )
+		formatString: €#,##0,,.00"M"
+		displayFolder: Time comparison
+		lineageTag: 92ecfcd5-c98d-da6a-c582-cf0698dc5b8b
+
+	/// Growth vs. previous year.
+	measure 'Revenue YoY %' = DIVIDE ( [Revenue] - [Revenue PY], [Revenue PY] )
+		formatString: 0.0%
+		displayFolder: Time comparison
+		lineageTag: 290b98a8-156e-4683-baaf-47653c568b1e
+
+	/// Year-to-date revenue.
+	measure 'Revenue YTD' = TOTALYTD ( [Revenue], DimDate[Date] )
+		formatString: €#,##0,,.00"M"
+		displayFolder: Time comparison
+		lineageTag: ee632c4b-747c-b9b5-1514-18192f165195
+
+	/// Margin on sales lines only (returns excluded) - used for the discount analysis.
+	measure 'Margin % (Sales Lines)' = CALCULATE ( [Margin %], FactSales[line_type] = "Sale" )
+		formatString: 0.0%
+		displayFolder: Discounts
+		lineageTag: 07cb1cc4-bb2c-ed8e-f017-fa3072af2944
+
+	/// Average order value on sales lines only - do discounts buy bigger orders?
+	measure 'Avg Order Value (Sales Lines)' = CALCULATE ( [Avg Order Value], FactSales[line_type] = "Sale" )
+		formatString: €#,##0
+		displayFolder: Discounts
+		lineageTag: 40b7af05-5280-a772-5001-9cac1ed7f0e2
+
+	/// ALL(DimDate) ignores the year slicer: we always want the true last order date.
+	measure 'Last Order Date' = CALCULATE ( MAX ( FactSales[order_date] ), ALL ( DimDate ) )
+		formatString: dd mmm yyyy
+		displayFolder: Customers
+		lineageTag: a04c4218-4cc9-e707-73ed-0d62d7a23662
+
+	/// Days between the last order and the end of the data period (31 Dec 2025).
+	measure 'Days Since Last Order' =
+			VAR _last = [Last Order Date]
+			RETURN
+			    IF ( NOT ISBLANK ( _last ), DATEDIFF ( _last, DATE ( 2025, 12, 31 ), DAY ) )
+		formatString: #,##0
+		displayFolder: Customers
+		lineageTag: 0302578a-1334-36ca-893f-73ed33edf6bf
+
+	/// Churn risk: customers who ordered before but have been silent for 90+ days at year end.
+	measure 'Customers Inactive 90+ Days' =
+			COUNTROWS (
+			    FILTER (
+			        DimCustomer,
+			        VAR _last = [Last Order Date]
+			        RETURN NOT ISBLANK ( _last ) && _last < DATE ( 2025, 10, 2 )
+			    )
+			)
+		formatString: #,##0
+		displayFolder: Customers
+		lineageTag: 9ab20329-e81f-e57a-f437-509faeae9aad
+
+	/// Only filled for churn-risk customers, so the table shows just those rows.
+	measure 'At Risk: Days Inactive' =
+			VAR _d = [Days Since Last Order]
+			RETURN IF ( _d > 90, _d )
+		formatString: #,##0
+		displayFolder: Customers
+		lineageTag: c8695228-9f80-a98f-c974-aeea9de35c02
+
+	/// Last order date, only for churn-risk customers.
+	measure 'At Risk: Last Order' = IF ( [Days Since Last Order] > 90, [Last Order Date] )
+		formatString: dd mmm yyyy
+		displayFolder: Customers
+		lineageTag: 4e5becad-1ebc-274f-5584-74fc002eb9b2
+
+	/// Lifetime revenue of churn-risk customers - who is most valuable to win back?
+	measure 'At Risk: Lifetime Revenue' = IF ( [Days Since Last Order] > 90, CALCULATE ( [Revenue], ALL ( DimDate ) ) )
+		formatString: €#,##0,.0"k"
+		displayFolder: Customers
+		lineageTag: 6272e2b6-7681-2062-26b4-7663a26a5ff7
+
+	/// Share of orders delivered on or before the promised date.
+	measure 'On-Time Delivery %' = AVERAGE ( FactOrders[on_time] )
+		formatString: 0.0%
+		displayFolder: Delivery
+		lineageTag: 2c54e41a-7801-f372-3a11-2244b2c54d18
+
+	/// Number of late deliveries.
+	measure 'Late Deliveries' = CALCULATE ( COUNTROWS ( FactOrders ), FactOrders[on_time] = 0 )
+		formatString: #,##0
+		displayFolder: Delivery
+		lineageTag: 7010fcc5-e689-c652-ccc0-0b9175e31161
+
+	/// Unpaid invoice amount as of 31 Jan 2026.
+	measure 'Open Receivables' = CALCULATE ( SUM ( FactInvoices[amount_eur] ), FactInvoices[status] <> "Paid" )
+		formatString: €#,##0,.0"k"
+		displayFolder: Receivables
+		lineageTag: b37fcc41-9018-ac2c-437f-49a7b710dd1e
+
+	/// Unpaid and past the due date as of 31 Jan 2026.
+	measure 'Overdue Receivables' = CALCULATE ( SUM ( FactInvoices[amount_eur] ), FactInvoices[status] = "Overdue" )
+		formatString: €#,##0,.0"k"
+		displayFolder: Receivables
+		lineageTag: 661f75c5-1522-4045-b755-988327bcd3f5
+
+	/// Number of overdue invoices.
+	measure 'Overdue Invoices' = CALCULATE ( COUNTROWS ( FactInvoices ), FactInvoices[status] = "Overdue" )
+		formatString: #,##0
+		displayFolder: Receivables
+		lineageTag: 6c3ca5a7-3164-066d-2c39-34e8af9f40f2
+
+	/// AVERAGE skips blanks, so unpaid invoices are ignored automatically.
+	measure 'Avg Days to Pay' = AVERAGE ( FactInvoices[days_to_pay] )
+		formatString: #,##0.0
+		displayFolder: Receivables
+		lineageTag: f237376e-b4a9-7795-538e-825de4a96b8a
+
+	/// Share of paid invoices that were paid after the due date.
+	measure 'Paid Late %' =
+			DIVIDE (
+			    CALCULATE ( COUNTROWS ( FactInvoices ), FactInvoices[paid_late] = 1 ),
+			    CALCULATE ( COUNTROWS ( FactInvoices ), FactInvoices[status] = "Paid" )
+			)
+		formatString: 0.0%
+		displayFolder: Receivables
+		lineageTag: 8223ce0c-f45c-704a-dd04-6c133b3a621c
+
+	column Note
+		dataType: string
+		isHidden
+		lineageTag: 3d9a1565-e92b-ec83-54e6-a8213cf94d0b
+		summarizeBy: none
+		sourceColumn: Note
+
+		annotation SummarizationSetBy = User
+
+	partition _Measures = m
+		mode: import
+		source =
+				let
+				    Source = #table(type table [Note = text], {})
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

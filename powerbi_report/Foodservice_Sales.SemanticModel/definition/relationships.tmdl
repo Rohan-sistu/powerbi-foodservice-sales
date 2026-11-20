@@ -1,0 +1,28 @@
+relationship 581e91bc-e6da-8560-5e80-d93589ab5b27
+	fromColumn: FactSales.product_id
+	toColumn: DimProduct.product_id
+
+relationship 963ffb8c-43af-4f51-e6ec-a66cf88cf6d1
+	fromColumn: FactSales.customer_id
+	toColumn: DimCustomer.customer_id
+
+relationship 69daf80d-8581-23f9-4169-517964a6ce68
+	fromColumn: FactSales.order_date
+	toColumn: DimDate.Date
+
+relationship 90e05c42-91fd-64f0-7bb9-63c532f01863
+	fromColumn: FactOrders.customer_id
+	toColumn: DimCustomer.customer_id
+
+relationship 225eb418-fdac-5b54-b487-e067b666062c
+	fromColumn: FactOrders.order_date
+	toColumn: DimDate.Date
+
+relationship 7f37c9f3-1eaa-dec0-513f-1bb292794b66
+	fromColumn: FactInvoices.customer_id
+	toColumn: DimCustomer.customer_id
+
+relationship c6782951-fa72-6b63-7719-830e17e49666
+	fromColumn: DimCustomer.rep_id
+	toColumn: DimRep.rep_id
+

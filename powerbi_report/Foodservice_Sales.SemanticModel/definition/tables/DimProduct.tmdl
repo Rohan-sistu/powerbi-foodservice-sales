@@ -1,0 +1,83 @@
+table DimProduct
+	lineageTag: 2b7ce4bd-eb4a-214f-7aee-8e24b77b603f
+
+	column product_id
+		dataType: string
+		lineageTag: 61597f10-3c91-17f4-3e39-5d4fe4e7c441
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = User
+
+	column product_name
+		dataType: string
+		lineageTag: d5674ecc-ffde-ceb7-3833-f2958a908955
+		summarizeBy: none
+		sourceColumn: product_name
+
+		annotation SummarizationSetBy = User
+
+	column category
+		dataType: string
+		lineageTag: f3837e0c-2db9-01c9-e196-48c5e467755f
+		summarizeBy: none
+		sourceColumn: category
+
+		annotation SummarizationSetBy = User
+
+	column unit
+		dataType: string
+		lineageTag: 1b14e822-f536-78de-13c9-9393acf5c492
+		summarizeBy: none
+		sourceColumn: unit
+
+		annotation SummarizationSetBy = User
+
+	column list_price_eur
+		dataType: double
+		formatString: #,##0.00
+		lineageTag: cf87059b-fb2d-2fee-9208-859026539a95
+		summarizeBy: none
+		sourceColumn: list_price_eur
+
+		annotation SummarizationSetBy = User
+
+	column unit_cost_eur
+		dataType: double
+		formatString: #,##0.00
+		lineageTag: 8fc08eb3-c74b-3bee-2116-a41166c531bd
+		summarizeBy: none
+		sourceColumn: unit_cost_eur
+
+		annotation SummarizationSetBy = User
+
+	column is_organic
+		dataType: boolean
+		lineageTag: 5fddad9e-294f-7bfa-818c-66418240562a
+		summarizeBy: none
+		sourceColumn: is_organic
+
+		annotation SummarizationSetBy = User
+
+	partition DimProduct = m
+		mode: import
+		source =
+				let
+				    Source   = Csv.Document(File.Contents(DataFolder & "products.csv"), [Delimiter = ";", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Headers  = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    // German export: comma decimals (22,75) -> convert with the German locale
+				    Types    = Table.TransformColumnTypes(Headers, {{"list_price_eur", type number}, {"unit_cost_eur", type number}}, "de-DE"),
+				    FillCat  = Table.ReplaceValue(Types, "", "Unassigned", Replacer.ReplaceValue, {"category"}),
+				    Organic  = Table.TransformColumns(FillCat, {{"is_organic", each _ = "ja", type logical}}),
+				    CatMap   = {{"Fleisch & Geflügel", "Meat & Poultry"}, {"Getränke", "Beverages"}, {"Molkereiprodukte", "Dairy"}, {"Non-Food & Hygiene", "Non-food & Hygiene"}, {"Obst & Gemüse", "Fruit & Vegetables"}, {"Tiefkühlkost", "Frozen food"}, {"Trockensortiment", "Dry goods"}},
+				    NameMap  = {{"Fleisch Artikel", "Meat item"}, {"Getränke Artikel", "Beverage item"}, {"Molkereiprodukte Artikel", "Dairy item"}, {"Non-Food Artikel", "Non-food item"}, {"Obst Artikel", "Produce item"}, {"Tiefkühlkost Artikel", "Frozen item"}, {"Trockensortiment Artikel", "Dry goods item"}},
+				    UnitMap  = {{"Karton", "Carton"}, {"Kiste", "Crate"}, {"Packung", "Pack"}, {"Stk", "Piece"}},
+				    English  = Table.TransformColumns(Organic, {
+				                   {"category", each Translate(_, CatMap), type text},
+				                   {"unit", each Translate(_, UnitMap), type text},
+				                   {"product_name", each let parts = Text.Split(_, " "), prefix = Text.Combine(List.RemoveLastN(parts, 1), " ") in Translate(prefix, NameMap) & " " & List.Last(parts), type text}})
+				in
+				    English
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,100 @@
+// DAX measures - Foodservice Sales & Margin Dashboard (table _Measures)
+// Generated from the semantic model; each measure has a one-line explanation.
+
+// ---------- Sales ----------
+// Net revenue: quantity x price per line. Returns have negative quantity and reduce revenue.
+Revenue = SUMX ( FactSales, FactSales[quantity] * FactSales[unit_price_eur] )
+
+// RELATED fetches the unit cost from DimProduct over the many-to-one relationship; SUMX evaluates it row by row.
+Cost = SUMX ( FactSales, FactSales[quantity] * RELATED ( DimProduct[unit_cost_eur] ) )
+
+// Gross margin in euros (revenue minus cost of goods).
+Gross Margin = [Revenue] - [Cost]
+
+// DIVIDE returns BLANK instead of an error when Revenue is 0.
+Margin % = DIVIDE ( [Gross Margin], [Revenue] )
+
+// Number of distinct orders.
+Orders = DISTINCTCOUNT ( FactSales[order_id] )
+
+// Average revenue per order.
+Avg Order Value = DIVIDE ( [Revenue], [Orders] )
+
+// ---------- Customers ----------
+// Customers with at least one order line in the current filter context.
+Active Customers = DISTINCTCOUNT ( FactSales[customer_id] )
+
+// ---------- Time comparison ----------
+// Revenue in the same period of the previous year.
+Revenue PY = CALCULATE ( [Revenue], SAMEPERIODLASTYEAR ( DimDate[Date] ) )
+
+// Growth vs. previous year.
+Revenue YoY % = DIVIDE ( [Revenue] - [Revenue PY], [Revenue PY] )
+
+// Year-to-date revenue.
+Revenue YTD = TOTALYTD ( [Revenue], DimDate[Date] )
+
+// ---------- Discounts ----------
+// Margin on sales lines only (returns excluded) - used for the discount analysis.
+Margin % (Sales Lines) = CALCULATE ( [Margin %], FactSales[line_type] = "Sale" )
+
+// Average order value on sales lines only - do discounts buy bigger orders?
+Avg Order Value (Sales Lines) = CALCULATE ( [Avg Order Value], FactSales[line_type] = "Sale" )
+
+// ---------- Customers ----------
+// ALL(DimDate) ignores the year slicer: we always want the true last order date.
+Last Order Date = CALCULATE ( MAX ( FactSales[order_date] ), ALL ( DimDate ) )
+
+// Days between the last order and the end of the data period (31 Dec 2025).
+Days Since Last Order =
+    VAR _last = [Last Order Date]
+    RETURN
+        IF ( NOT ISBLANK ( _last ), DATEDIFF ( _last, DATE ( 2025, 12, 31 ), DAY ) )
+
+// Churn risk: customers who ordered before but have been silent for 90+ days at year end.
+Customers Inactive 90+ Days =
+    COUNTROWS (
+        FILTER (
+            DimCustomer,
+            VAR _last = [Last Order Date]
+            RETURN NOT ISBLANK ( _last ) && _last < DATE ( 2025, 10, 2 )
+        )
+    )
+
+// Only filled for churn-risk customers, so the table shows just those rows.
+At Risk: Days Inactive =
+    VAR _d = [Days Since Last Order]
+    RETURN IF ( _d > 90, _d )
+
+// Last order date, only for churn-risk customers.
+At Risk: Last Order = IF ( [Days Since Last Order] > 90, [Last Order Date] )
+
+// Lifetime revenue of churn-risk customers - who is most valuable to win back?
+At Risk: Lifetime Revenue = IF ( [Days Since Last Order] > 90, CALCULATE ( [Revenue], ALL ( DimDate ) ) )
+
+// ---------- Delivery ----------
+// Share of orders delivered on or before the promised date.
+On-Time Delivery % = AVERAGE ( FactOrders[on_time] )
+
+// Number of late deliveries.
+Late Deliveries = CALCULATE ( COUNTROWS ( FactOrders ), FactOrders[on_time] = 0 )
+
+// ---------- Receivables ----------
+// Unpaid invoice amount as of 31 Jan 2026.
+Open Receivables = CALCULATE ( SUM ( FactInvoices[amount_eur] ), FactInvoices[status] <> "Paid" )
+
+// Unpaid and past the due date as of 31 Jan 2026.
+Overdue Receivables = CALCULATE ( SUM ( FactInvoices[amount_eur] ), FactInvoices[status] = "Overdue" )
+
+// Number of overdue invoices.
+Overdue Invoices = CALCULATE ( COUNTROWS ( FactInvoices ), FactInvoices[status] = "Overdue" )
+
+// AVERAGE skips blanks, so unpaid invoices are ignored automatically.
+Avg Days to Pay = AVERAGE ( FactInvoices[days_to_pay] )
+
+// Share of paid invoices that were paid after the due date.
+Paid Late % =
+    DIVIDE (
+        CALCULATE ( COUNTROWS ( FactInvoices ), FactInvoices[paid_late] = 1 ),
+        CALCULATE ( COUNTROWS ( FactInvoices ), FactInvoices[status] = "Paid" )
+    )

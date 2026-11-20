@@ -1,0 +1,78 @@
+/// Calendar 2024-2025, marked as date table (needed for time intelligence such as SAMEPERIODLASTYEAR).
+table DimDate
+	lineageTag: ae565378-edb0-bacb-7e91-a4bfe871f164
+	dataCategory: Time
+
+	column Date
+		dataType: dateTime
+		isKey
+		formatString: dd.MM.yyyy
+		lineageTag: bcee8b64-9d45-e0a2-1ebf-f20c8a440c8f
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = User
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: ab793f07-66ed-d377-34b7-2990ddfd8b92
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = User
+
+	column Quarter
+		dataType: string
+		lineageTag: 57122775-5d1a-53a1-4b9e-746fbda912c0
+		summarizeBy: none
+		sourceColumn: Quarter
+
+		annotation SummarizationSetBy = User
+
+	column MonthNo
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 786beef7-00a1-e9fa-37e3-8fb69d4c799f
+		summarizeBy: none
+		sourceColumn: MonthNo
+
+		annotation SummarizationSetBy = User
+
+	column Month
+		dataType: string
+		lineageTag: 04de20e2-82fb-2c02-e4b5-b7c4cbdd5678
+		summarizeBy: none
+		sourceColumn: Month
+		sortByColumn: MonthNo
+
+		annotation SummarizationSetBy = User
+
+	column Year-Month
+		dataType: string
+		lineageTag: dd5d8af0-a918-e6c5-1d49-c9c751a58d52
+		summarizeBy: none
+		sourceColumn: Year-Month
+
+		annotation SummarizationSetBy = User
+
+	partition DimDate = m
+		mode: import
+		source =
+				let
+				    Start    = #date(2024, 1, 1),
+				    Dates    = List.Dates(Start, Duration.Days(#date(2025, 12, 31) - Start) + 1, #duration(1, 0, 0, 0)),
+				    T        = Table.FromList(Dates, Splitter.SplitByNothing(), type table [Date = date]),
+				    Year     = Table.AddColumn(T, "Year", each Date.Year([Date]), Int64.Type),
+				    Quarter  = Table.AddColumn(Year, "Quarter", each "Q" & Text.From(Date.QuarterOfYear([Date])), type text),
+				    MonthNo  = Table.AddColumn(Quarter, "MonthNo", each Date.Month([Date]), Int64.Type),
+				    Month    = Table.AddColumn(MonthNo, "Month", each Date.ToText([Date], "MMM", "en-US"), type text),
+				    YearMon  = Table.AddColumn(Month, "Year-Month", each Date.ToText([Date], "yyyy-MM"), type text)
+				in
+				    YearMon
+
+	annotation PBI_ResultType = Table
+

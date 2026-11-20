@@ -1,0 +1,51 @@
+table DimRep
+	lineageTag: e13c44b4-056c-1023-b91f-0e0b70a59549
+
+	column rep_id
+		dataType: string
+		lineageTag: 255c07b5-6ec8-ed19-7306-75f88aee8056
+		summarizeBy: none
+		sourceColumn: rep_id
+
+		annotation SummarizationSetBy = User
+
+	column rep_name
+		dataType: string
+		lineageTag: e1f10520-84e1-b09b-45a4-ce80bd03e340
+		summarizeBy: none
+		sourceColumn: rep_name
+
+		annotation SummarizationSetBy = User
+
+	column region
+		dataType: string
+		lineageTag: 6eec1a99-3c83-5255-265d-f3404588d4e6
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = User
+
+	column hire_date
+		dataType: dateTime
+		formatString: dd.MM.yyyy
+		lineageTag: 830d17c4-088c-bb54-bd30-3656470a3797
+		summarizeBy: none
+		sourceColumn: hire_date
+
+		annotation SummarizationSetBy = User
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition DimRep = m
+		mode: import
+		source =
+				let
+				    Source   = Csv.Document(File.Contents(DataFolder & "sales_reps.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Headers  = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    English  = Table.TransformColumns(Headers, {{"region", each Translate(_, {{"Nord", "North"}, {"Ost", "East"}, {"Süd", "South"}}), type text}}),
+				    Types    = Table.TransformColumnTypes(English, {{"hire_date", type date}}, "en-US")
+				in
+				    Types
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,141 @@
+/// Invoices with payment status as of the data extract (31 Jan 2026). Not related to DimDate on purpose: it is a snapshot.
+table FactInvoices
+	lineageTag: 5274da6c-7d66-bd3e-c0f4-73aebbcabd22
+
+	column invoice_id
+		dataType: string
+		lineageTag: 0ecb1029-4b7b-b9d5-eeca-db2f1aaa020a
+		summarizeBy: none
+		sourceColumn: invoice_id
+
+		annotation SummarizationSetBy = User
+
+	column order_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 499f379c-5fa9-4dbd-3408-f77bb50476d7
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = User
+
+	column invoice_date
+		dataType: dateTime
+		formatString: dd.MM.yyyy
+		lineageTag: d718a523-9c70-2066-7a60-ced6815c9660
+		summarizeBy: none
+		sourceColumn: invoice_date
+
+		annotation SummarizationSetBy = User
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column due_date
+		dataType: dateTime
+		formatString: dd.MM.yyyy
+		lineageTag: 3e89477a-a06d-6579-cc1c-c47e4be184ac
+		summarizeBy: none
+		sourceColumn: due_date
+
+		annotation SummarizationSetBy = User
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column payment_date
+		dataType: dateTime
+		formatString: dd.MM.yyyy
+		lineageTag: 9df904bb-8d6f-0110-618a-ea836b46d02c
+		summarizeBy: none
+		sourceColumn: payment_date
+
+		annotation SummarizationSetBy = User
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column amount_eur
+		dataType: double
+		formatString: #,##0.00
+		lineageTag: f4e8cf50-657f-1940-c65a-42a8105754e3
+		summarizeBy: none
+		sourceColumn: amount_eur
+
+		annotation SummarizationSetBy = User
+
+	column customer_id
+		dataType: string
+		isHidden
+		lineageTag: 900823dd-e826-4f81-5125-ec836c7015a6
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = User
+
+	column status
+		dataType: string
+		lineageTag: e7b4cf46-98ba-472d-1a93-24e641d0636a
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = User
+
+	column days_to_pay
+		dataType: int64
+		formatString: 0
+		lineageTag: 2dae585c-17b7-f7d0-f715-254846ee7178
+		summarizeBy: none
+		sourceColumn: days_to_pay
+
+		annotation SummarizationSetBy = User
+
+	column paid_late
+		dataType: int64
+		formatString: 0
+		lineageTag: cecd7be4-2a18-575e-9272-4e26e8fdea1f
+		summarizeBy: none
+		sourceColumn: paid_late
+
+		annotation SummarizationSetBy = User
+
+	column overdue_age
+		dataType: string
+		lineageTag: 0b6fd704-9e40-08b4-d588-190dcf248ace
+		summarizeBy: none
+		sourceColumn: overdue_age
+		sortByColumn: overdue_age_sort
+
+		annotation SummarizationSetBy = User
+
+	column overdue_age_sort
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 61857ebb-c8ef-38a6-9fef-182d1c34c1e5
+		summarizeBy: none
+		sourceColumn: overdue_age_sort
+
+		annotation SummarizationSetBy = User
+
+	partition FactInvoices = m
+		mode: import
+		source =
+				let
+				    Source   = Csv.Document(File.Contents(DataFolder & "invoices.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Headers  = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Types    = Table.TransformColumnTypes(Headers, {{"order_id", Int64.Type}, {"invoice_date", type date}, {"due_date", type date}}, "en-US"),
+				    // payment_date comes in two formats (2025-03-14 and 14.03.2025) or is empty (= not paid yet)
+				    PayDate  = Table.TransformColumns(Types, {{"payment_date", each if _ = "" or _ = null then null else if Text.Contains(_, ".") then Date.FromText(_, [Format = "dd.MM.yyyy", Culture = "de-DE"]) else Date.FromText(_, [Format = "yyyy-MM-dd", Culture = "en-US"]), type date}}),
+				    Amounts  = Table.Group(LinesClean, {"order_id"}, {{"amount_eur", each List.Sum([line_amount_eur]), type number}}),
+				    AddAmt   = Table.ExpandTableColumn(Table.NestedJoin(PayDate, {"order_id"}, Amounts, {"order_id"}, "a", JoinKind.LeftOuter), "a", {"amount_eur"}),
+				    AddCust  = Table.ExpandTableColumn(Table.NestedJoin(AddAmt, {"order_id"}, FactOrders, {"order_id"}, "o", JoinKind.LeftOuter), "o", {"customer_id"}),
+				    Cutoff   = #date(2026, 1, 31),
+				    Status   = Table.AddColumn(AddCust, "status", each if [payment_date] <> null then "Paid" else if [due_date] < Cutoff then "Overdue" else "Open", type text),
+				    PayDays  = Table.AddColumn(Status, "days_to_pay", each if [payment_date] <> null then Duration.Days([payment_date] - [invoice_date]) else null, Int64.Type),
+				    Late     = Table.AddColumn(PayDays, "paid_late", each if [payment_date] <> null and [payment_date] > [due_date] then 1 else 0, Int64.Type),
+				    Aging    = Table.AddColumn(Late, "overdue_age", each if [status] <> "Overdue" then null else let d = Duration.Days(Cutoff - [due_date]) in if d <= 30 then "1–30 days" else if d <= 60 then "31–60 days" else if d <= 90 then "61–90 days" else "> 90 days", type text),
+				    AgingSrt = Table.AddColumn(Aging, "overdue_age_sort", each if [overdue_age] = null then null else if [overdue_age] = "1–30 days" then 1 else if [overdue_age] = "31–60 days" then 2 else if [overdue_age] = "61–90 days" then 3 else 4, Int64.Type),
+				    FinalTyp = Table.TransformColumnTypes(AgingSrt, {{"amount_eur", type number}, {"customer_id", type text}})
+				in
+				    FinalTyp
+
+	annotation PBI_ResultType = Table
+

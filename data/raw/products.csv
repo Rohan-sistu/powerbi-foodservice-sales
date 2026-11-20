@@ -1,0 +1,271 @@
+﻿product_id;product_name;category;unit;list_price_eur;unit_cost_eur;is_organic
+P1000;Fleisch Artikel 001;Fleisch & Geflügel;kg;22,75;16,87;ja
+P1001;Fleisch Artikel 002;Fleisch & Geflügel;kg;15,91;12,46;nein
+P1002;Fleisch Artikel 003;Fleisch & Geflügel;kg;20,17;14,88;nein
+P1003;Fleisch Artikel 004;Fleisch & Geflügel;kg;11,00;8,41;ja
+P1004;Fleisch Artikel 005;Fleisch & Geflügel;kg;24,21;18,32;nein
+P1005;Fleisch Artikel 006;Fleisch & Geflügel;kg;13,80;9,98;nein
+P1006;Fleisch Artikel 007;Fleisch & Geflügel;kg;23,12;18,51;nein
+P1007;Fleisch Artikel 008;Fleisch & Geflügel;kg;6,96;5,60;nein
+P1008;Fleisch Artikel 009;Fleisch & Geflügel;kg;22,38;16,19;nein
+P1009;Fleisch Artikel 010;Fleisch & Geflügel;kg;14,15;10,94;nein
+P1010;Fleisch Artikel 011;Fleisch & Geflügel;kg;8,86;6,84;nein
+P1011;Fleisch Artikel 012;Fleisch & Geflügel;kg;20,74;16,10;nein
+P1012;Fleisch Artikel 013;Fleisch & Geflügel;kg;21,41;16,89;nein
+P1013;Fleisch Artikel 014;Fleisch & Geflügel;kg;23,70;18,52;nein
+P1014;Fleisch Artikel 015;Fleisch & Geflügel;kg;21,01;16,93;nein
+P1015;Fleisch Artikel 016;Fleisch & Geflügel;kg;6,16;4,57;nein
+P1016;Fleisch Artikel 017;Fleisch & Geflügel;kg;21,51;15,96;nein
+P1017;Fleisch Artikel 018;Fleisch & Geflügel;kg;18,51;14,92;ja
+P1018;Fleisch Artikel 019;Fleisch & Geflügel;kg;20,70;16,00;nein
+P1019;Fleisch Artikel 020;Fleisch & Geflügel;kg;22,83;17,27;nein
+P1020;Fleisch Artikel 021;Fleisch & Geflügel;kg;18,30;14,45;ja
+P1021;Fleisch Artikel 022;Fleisch & Geflügel;kg;15,61;12,47;nein
+P1022;Fleisch Artikel 023;Fleisch & Geflügel;kg;24,77;19,73;ja
+P1023;Fleisch Artikel 024;;kg;12,19;9,64;nein
+P1024;Fleisch Artikel 025;Fleisch & Geflügel;kg;18,25;13,53;nein
+P1025;Fleisch Artikel 026;Fleisch & Geflügel;kg;14,94;11,03;ja
+P1026;Fleisch Artikel 027;Fleisch & Geflügel;kg;6,50;5,27;nein
+P1027;Fleisch Artikel 028;Fleisch & Geflügel;kg;16,16;12,99;nein
+P1028;Fleisch Artikel 029;Fleisch & Geflügel;kg;9,35;7,02;nein
+P1029;Fleisch Artikel 030;Fleisch & Geflügel;kg;14,38;11,36;nein
+P1030;Fleisch Artikel 031;Fleisch & Geflügel;kg;13,96;11,32;ja
+P1031;Fleisch Artikel 032;Fleisch & Geflügel;kg;27,16;19,80;nein
+P1032;Fleisch Artikel 033;Fleisch & Geflügel;kg;11,85;8,57;nein
+P1033;Fleisch Artikel 034;Fleisch & Geflügel;kg;21,77;16,87;nein
+P1034;Fleisch Artikel 035;Fleisch & Geflügel;kg;8,12;5,93;nein
+P1035;Fleisch Artikel 036;Fleisch & Geflügel;kg;10,45;8,25;nein
+P1036;Fleisch Artikel 037;Fleisch & Geflügel;kg;9,89;7,26;nein
+P1037;Fleisch Artikel 038;Fleisch & Geflügel;kg;21,83;16,96;nein
+P1038;Fleisch Artikel 039;Fleisch & Geflügel;kg;18,85;14,23;ja
+P1039;Fleisch Artikel 040;;kg;15,15;12,36;nein
+P1040;Molkereiprodukte Artikel 001;Molkereiprodukte;Stk;3,97;3,12;ja
+P1041;Molkereiprodukte Artikel 002;Molkereiprodukte;Stk;5,91;4,63;nein
+P1042;Molkereiprodukte Artikel 003;Molkereiprodukte;Stk;5,86;4,48;nein
+P1043;Molkereiprodukte Artikel 004;Molkereiprodukte;Stk;1,67;1,18;nein
+P1044;Molkereiprodukte Artikel 005;Molkereiprodukte;Stk;7,37;5,84;nein
+P1045;Molkereiprodukte Artikel 006;Molkereiprodukte;Stk;5,18;3,66;nein
+P1046;Molkereiprodukte Artikel 007;Molkereiprodukte;Stk;5,05;3,91;nein
+P1047;Molkereiprodukte Artikel 008;Molkereiprodukte;Stk;5,41;4,09;ja
+P1048;Molkereiprodukte Artikel 009;Molkereiprodukte;Stk;7,70;5,47;ja
+P1049;Molkereiprodukte Artikel 010;;Stk;5,66;4,47;nein
+P1050;Molkereiprodukte Artikel 011;Molkereiprodukte;Stk;3,61;2,65;nein
+P1051;Molkereiprodukte Artikel 012;Molkereiprodukte;Stk;7,26;5,73;nein
+P1052;Molkereiprodukte Artikel 013;Molkereiprodukte;Stk;3,23;2,57;nein
+P1053;Molkereiprodukte Artikel 014;Molkereiprodukte;Stk;4,28;3,07;nein
+P1054;Molkereiprodukte Artikel 015;Molkereiprodukte;Stk;3,88;2,73;nein
+P1055;Molkereiprodukte Artikel 016;Molkereiprodukte;Stk;5,36;4,15;nein
+P1056;Molkereiprodukte Artikel 017;Molkereiprodukte;Stk;2,73;2,17;nein
+P1057;Molkereiprodukte Artikel 018;Molkereiprodukte;Stk;8,94;6,35;nein
+P1058;Molkereiprodukte Artikel 019;Molkereiprodukte;Stk;8,18;5,81;nein
+P1059;Molkereiprodukte Artikel 020;Molkereiprodukte;Stk;3,87;2,80;nein
+P1060;Molkereiprodukte Artikel 021;Molkereiprodukte;Stk;4,30;3,40;nein
+P1061;Molkereiprodukte Artikel 022;Molkereiprodukte;Stk;3,47;2,45;nein
+P1062;Molkereiprodukte Artikel 023;Molkereiprodukte;Stk;2,42;1,73;ja
+P1063;Molkereiprodukte Artikel 024;Molkereiprodukte;Stk;2,84;2,10;nein
+P1064;Molkereiprodukte Artikel 025;Molkereiprodukte;Stk;2,97;2,28;nein
+P1065;Molkereiprodukte Artikel 026;Molkereiprodukte;Stk;8,79;6,59;ja
+P1066;Molkereiprodukte Artikel 027;Molkereiprodukte;Stk;1,60;1,24;ja
+P1067;Molkereiprodukte Artikel 028;Molkereiprodukte;Stk;6,58;5,18;nein
+P1068;Molkereiprodukte Artikel 029;Molkereiprodukte;Stk;6,71;4,98;nein
+P1069;Molkereiprodukte Artikel 030;Molkereiprodukte;Stk;7,53;5,49;nein
+P1070;Molkereiprodukte Artikel 031;Molkereiprodukte;Stk;2,48;1,95;nein
+P1071;Molkereiprodukte Artikel 032;Molkereiprodukte;Stk;4,48;3,45;nein
+P1072;Molkereiprodukte Artikel 033;Molkereiprodukte;Stk;6,47;4,56;nein
+P1073;Molkereiprodukte Artikel 034;Molkereiprodukte;Stk;8,44;6,73;nein
+P1074;Molkereiprodukte Artikel 035;Molkereiprodukte;Stk;6,25;4,93;ja
+P1075;Tiefkühlkost Artikel 001;Tiefkühlkost;Karton;10,96;6,84;nein
+P1076;Tiefkühlkost Artikel 002;Tiefkühlkost;Karton;20,73;13,34;nein
+P1077;Tiefkühlkost Artikel 003;Tiefkühlkost;Karton;17,91;13,22;ja
+P1078;Tiefkühlkost Artikel 004;Tiefkühlkost;Karton;18,76;12,09;nein
+P1079;Tiefkühlkost Artikel 005;Tiefkühlkost;Karton;13,08;8,73;nein
+P1080;Tiefkühlkost Artikel 006;Tiefkühlkost;Karton;14,46;9,98;nein
+P1081;Tiefkühlkost Artikel 007;Tiefkühlkost;Karton;11,09;7,34;nein
+P1082;Tiefkühlkost Artikel 008;Tiefkühlkost;Karton;11,62;8,25;nein
+P1083;Tiefkühlkost Artikel 009;Tiefkühlkost;Karton;17,17;11,02;ja
+P1084;Tiefkühlkost Artikel 010;Tiefkühlkost;Karton;4,26;2,85;ja
+P1085;Tiefkühlkost Artikel 011;Tiefkühlkost;Karton;18,67;13,12;ja
+P1086;Tiefkühlkost Artikel 012;Tiefkühlkost;Karton;20,50;14,76;nein
+P1087;Tiefkühlkost Artikel 013;Tiefkühlkost;Karton;5,92;4,30;ja
+P1088;Tiefkühlkost Artikel 014;Tiefkühlkost;Karton;4,05;2,91;ja
+P1089;Tiefkühlkost Artikel 015;;Karton;14,23;9,37;nein
+P1090;Tiefkühlkost Artikel 016;Tiefkühlkost;Karton;9,04;6,14;nein
+P1091;Tiefkühlkost Artikel 017;Tiefkühlkost;Karton;19,17;14,09;nein
+P1092;Tiefkühlkost Artikel 018;Tiefkühlkost;Karton;7,50;5,33;nein
+P1093;Tiefkühlkost Artikel 019;Tiefkühlkost;Karton;10,91;8,01;nein
+P1094;Tiefkühlkost Artikel 020;Tiefkühlkost;Karton;12,95;9,43;nein
+P1095;Tiefkühlkost Artikel 021;Tiefkühlkost;Karton;3,99;2,51;ja
+P1096;Tiefkühlkost Artikel 022;Tiefkühlkost;Karton;19,03;12,02;nein
+P1097;Tiefkühlkost Artikel 023;Tiefkühlkost;Karton;18,24;11,79;nein
+P1098;Tiefkühlkost Artikel 024;Tiefkühlkost;Karton;17,80;12,88;nein
+P1099;Tiefkühlkost Artikel 025;Tiefkühlkost;Karton;12,77;8,14;nein
+P1100;Tiefkühlkost Artikel 026;Tiefkühlkost;Karton;10,32;6,84;nein
+P1101;Tiefkühlkost Artikel 027;Tiefkühlkost;Karton;5,66;3,86;nein
+P1102;Tiefkühlkost Artikel 028;Tiefkühlkost;Karton;7,42;5,16;nein
+P1103;Tiefkühlkost Artikel 029;Tiefkühlkost;Karton;9,22;6,40;nein
+P1104;Tiefkühlkost Artikel 030;Tiefkühlkost;Karton;8,64;5,41;nein
+P1105;Tiefkühlkost Artikel 031;Tiefkühlkost;Karton;12,14;8,51;nein
+P1106;Tiefkühlkost Artikel 032;Tiefkühlkost;Karton;19,12;12,65;nein
+P1107;Tiefkühlkost Artikel 033;;Karton;13,12;8,71;nein
+P1108;Tiefkühlkost Artikel 034;Tiefkühlkost;Karton;16,96;12,14;nein
+P1109;Tiefkühlkost Artikel 035;Tiefkühlkost;Karton;19,35;14,01;nein
+P1110;Tiefkühlkost Artikel 036;Tiefkühlkost;Karton;4,81;3,14;ja
+P1111;Tiefkühlkost Artikel 037;Tiefkühlkost;Karton;20,78;15,03;nein
+P1112;Tiefkühlkost Artikel 038;Tiefkühlkost;Karton;18,22;12,18;nein
+P1113;Tiefkühlkost Artikel 039;Tiefkühlkost;Karton;18,11;11,35;nein
+P1114;Tiefkühlkost Artikel 040;Tiefkühlkost;Karton;14,21;10,35;nein
+P1115;Tiefkühlkost Artikel 041;Tiefkühlkost;Karton;6,25;4,20;nein
+P1116;Tiefkühlkost Artikel 042;Tiefkühlkost;Karton;11,85;8,03;nein
+P1117;Tiefkühlkost Artikel 043;Tiefkühlkost;Karton;18,19;12,39;nein
+P1118;Tiefkühlkost Artikel 044;Tiefkühlkost;Karton;20,69;15,01;ja
+P1119;Tiefkühlkost Artikel 045;Tiefkühlkost;Karton;4,67;3,09;nein
+P1120;Trockensortiment Artikel 001;Trockensortiment;Stk;9,52;5,90;nein
+P1121;Trockensortiment Artikel 002;Trockensortiment;Stk;10,88;6,62;nein
+P1122;Trockensortiment Artikel 003;Trockensortiment;Stk;5,01;3,32;ja
+P1123;Trockensortiment Artikel 004;Trockensortiment;Stk;2,63;1,55;nein
+P1124;Trockensortiment Artikel 005;Trockensortiment;Stk;5,22;3,20;nein
+P1125;Trockensortiment Artikel 006;Trockensortiment;Stk;11,30;6,85;nein
+P1126;Trockensortiment Artikel 007;Trockensortiment;Stk;5,14;2,99;nein
+P1127;Trockensortiment Artikel 008;Trockensortiment;Stk;11,46;7,86;nein
+P1128;Trockensortiment Artikel 009;Trockensortiment;Stk;8,01;5,49;nein
+P1129;Trockensortiment Artikel 010;Trockensortiment;Stk;8,55;5,97;nein
+P1130;Trockensortiment Artikel 011;Trockensortiment;Stk;10,08;6,70;nein
+P1131;Trockensortiment Artikel 012;Trockensortiment;Stk;5,87;3,90;nein
+P1132;Trockensortiment Artikel 013;Trockensortiment;Stk;9,59;6,59;nein
+P1133;Trockensortiment Artikel 014;Trockensortiment;Stk;10,67;7,11;nein
+P1134;Trockensortiment Artikel 015;Trockensortiment;Stk;2,17;1,26;nein
+P1135;Trockensortiment Artikel 016;Trockensortiment;Stk;8,15;5,62;nein
+P1136;Trockensortiment Artikel 017;Trockensortiment;Stk;1,32;0,89;ja
+P1137;Trockensortiment Artikel 018;Trockensortiment;Stk;9,54;6,45;nein
+P1138;Trockensortiment Artikel 019;Trockensortiment;Stk;8,22;5,72;ja
+P1139;Trockensortiment Artikel 020;Trockensortiment;Stk;1,57;0,98;nein
+P1140;Trockensortiment Artikel 021;Trockensortiment;Stk;3,62;2,17;ja
+P1141;Trockensortiment Artikel 022;Trockensortiment;Stk;9,81;5,77;nein
+P1142;Trockensortiment Artikel 023;Trockensortiment;Stk;8,68;5,20;ja
+P1143;Trockensortiment Artikel 024;Trockensortiment;Stk;3,22;2,21;nein
+P1144;Trockensortiment Artikel 025;Trockensortiment;Stk;9,20;5,74;nein
+P1145;Trockensortiment Artikel 026;Trockensortiment;Stk;2,71;1,66;nein
+P1146;Trockensortiment Artikel 027;Trockensortiment;Stk;3,98;2,45;nein
+P1147;Trockensortiment Artikel 028;Trockensortiment;Stk;7,73;5,36;nein
+P1148;Trockensortiment Artikel 029;;Stk;1,47;0,87;nein
+P1149;Trockensortiment Artikel 030;Trockensortiment;Stk;2,90;2,00;nein
+P1150;Trockensortiment Artikel 031;Trockensortiment;Stk;11,78;7,60;nein
+P1151;Trockensortiment Artikel 032;Trockensortiment;Stk;8,00;5,05;ja
+P1152;Trockensortiment Artikel 033;Trockensortiment;Stk;11,41;7,57;nein
+P1153;Trockensortiment Artikel 034;Trockensortiment;Stk;8,70;5,41;nein
+P1154;Trockensortiment Artikel 035;Trockensortiment;Stk;2,63;1,68;nein
+P1155;Trockensortiment Artikel 036;Trockensortiment;Stk;6,22;4,27;ja
+P1156;Trockensortiment Artikel 037;Trockensortiment;Stk;4,06;2,69;nein
+P1157;Trockensortiment Artikel 038;Trockensortiment;Stk;7,72;4,82;nein
+P1158;Trockensortiment Artikel 039;Trockensortiment;Stk;5,50;3,71;nein
+P1159;Trockensortiment Artikel 040;Trockensortiment;Stk;4,49;3,12;nein
+P1160;Trockensortiment Artikel 041;Trockensortiment;Stk;6,22;4,19;nein
+P1161;Trockensortiment Artikel 042;Trockensortiment;Stk;7,22;4,45;nein
+P1162;Trockensortiment Artikel 043;Trockensortiment;Stk;8,18;5,42;nein
+P1163;Trockensortiment Artikel 044;Trockensortiment;Stk;7,04;4,56;nein
+P1164;Trockensortiment Artikel 045;Trockensortiment;Stk;4,97;3,17;nein
+P1165;Trockensortiment Artikel 046;Trockensortiment;Stk;10,75;6,34;nein
+P1166;Trockensortiment Artikel 047;Trockensortiment;Stk;6,72;4,06;nein
+P1167;Trockensortiment Artikel 048;Trockensortiment;Stk;10,21;6,54;ja
+P1168;Trockensortiment Artikel 049;Trockensortiment;Stk;1,79;1,07;ja
+P1169;Trockensortiment Artikel 050;Trockensortiment;Stk;4,09;2,70;ja
+P1170;Getränke Artikel 001;Getränke;Kiste;6,20;3,91;ja
+P1171;Getränke Artikel 002;;Kiste;15,03;9,28;nein
+P1172;Getränke Artikel 003;Getränke;Kiste;3,44;2,23;ja
+P1173;Getränke Artikel 004;Getränke;Kiste;7,08;4,28;nein
+P1174;Getränke Artikel 005;Getränke;Kiste;14,08;9,61;nein
+P1175;Getränke Artikel 006;Getränke;Kiste;12,93;8,71;nein
+P1176;Getränke Artikel 007;Getränke;Kiste;0,98;0,68;nein
+P1177;Getränke Artikel 008;Getränke;Kiste;3,62;2,53;nein
+P1178;Getränke Artikel 009;Getränke;Kiste;17,81;11,63;nein
+P1179;Getränke Artikel 010;Getränke;Kiste;17,83;12,53;nein
+P1180;Getränke Artikel 011;Getränke;Kiste;7,55;5,36;nein
+P1181;Getränke Artikel 012;Getränke;Kiste;8,26;5,48;ja
+P1182;Getränke Artikel 013;Getränke;Kiste;3,91;2,39;ja
+P1183;Getränke Artikel 014;Getränke;Kiste;4,81;3,29;nein
+P1184;Getränke Artikel 015;Getränke;Kiste;10,89;7,20;ja
+P1185;Getränke Artikel 016;Getränke;Kiste;4,99;3,09;nein
+P1186;Getränke Artikel 017;Getränke;Kiste;11,97;7,66;nein
+P1187;Getränke Artikel 018;Getränke;Kiste;1,80;1,22;nein
+P1188;Getränke Artikel 019;Getränke;Kiste;6,62;4,10;nein
+P1189;Getränke Artikel 020;Getränke;Kiste;14,02;8,66;nein
+P1190;Getränke Artikel 021;Getränke;Kiste;16,44;10,68;nein
+P1191;Getränke Artikel 022;Getränke;Kiste;6,66;4,40;nein
+P1192;Getränke Artikel 023;Getränke;Kiste;2,61;1,75;nein
+P1193;Getränke Artikel 024;Getränke;Kiste;11,65;8,14;nein
+P1194;Getränke Artikel 025;Getränke;Kiste;4,10;2,94;nein
+P1195;Getränke Artikel 026;Getränke;Kiste;8,51;5,81;nein
+P1196;Getränke Artikel 027;Getränke;Kiste;0,93;0,64;nein
+P1197;Getränke Artikel 028;Getränke;Kiste;11,70;7,05;nein
+P1198;Getränke Artikel 029;Getränke;Kiste;9,01;5,66;nein
+P1199;Getränke Artikel 030;;Kiste;13,20;7,98;nein
+P1200;Getränke Artikel 031;Getränke;Kiste;15,71;11,10;nein
+P1201;Getränke Artikel 032;Getränke;Kiste;8,37;5,47;nein
+P1202;Getränke Artikel 033;Getränke;Kiste;17,48;10,52;nein
+P1203;Getränke Artikel 034;Getränke;Kiste;13,42;8,45;nein
+P1204;Getränke Artikel 035;Getränke;Kiste;2,93;2,10;nein
+P1205;Getränke Artikel 036;Getränke;Kiste;9,22;5,55;nein
+P1206;Getränke Artikel 037;Getränke;Kiste;17,62;11,82;nein
+P1207;Getränke Artikel 038;Getränke;Kiste;2,26;1,48;nein
+P1208;Getränke Artikel 039;Getränke;Kiste;16,70;10,38;ja
+P1209;Getränke Artikel 040;Getränke;Kiste;7,21;5,15;ja
+P1210;Obst Artikel 001;Obst & Gemüse;kg;5,02;3,86;nein
+P1211;Obst Artikel 002;Obst & Gemüse;kg;6,18;4,73;nein
+P1212;Obst Artikel 003;Obst & Gemüse;kg;1,20;0,98;nein
+P1213;Obst Artikel 004;Obst & Gemüse;kg;6,13;5,15;nein
+P1214;Obst Artikel 005;Obst & Gemüse;kg;5,03;4,21;nein
+P1215;Obst Artikel 006;Obst & Gemüse;kg;6,36;4,92;nein
+P1216;Obst Artikel 007;Obst & Gemüse;kg;6,10;4,91;nein
+P1217;Obst Artikel 008;Obst & Gemüse;kg;2,72;2,12;nein
+P1218;Obst Artikel 009;Obst & Gemüse;kg;2,58;1,94;nein
+P1219;Obst Artikel 010;Obst & Gemüse;kg;1,42;1,14;nein
+P1220;Obst Artikel 011;Obst & Gemüse;kg;5,83;4,31;nein
+P1221;Obst Artikel 012;Obst & Gemüse;kg;3,39;2,80;nein
+P1222;Obst Artikel 013;Obst & Gemüse;kg;6,99;5,38;nein
+P1223;Obst Artikel 014;Obst & Gemüse;kg;3,29;2,46;nein
+P1224;Obst Artikel 015;;kg;1,72;1,38;ja
+P1225;Obst Artikel 016;Obst & Gemüse;kg;2,13;1,79;nein
+P1226;Obst Artikel 017;Obst & Gemüse;kg;4,77;3,84;nein
+P1227;Obst Artikel 018;Obst & Gemüse;kg;6,75;5,16;nein
+P1228;Obst Artikel 019;Obst & Gemüse;kg;2,64;1,98;nein
+P1229;Obst Artikel 020;Obst & Gemüse;kg;2,88;2,16;nein
+P1230;Obst Artikel 021;Obst & Gemüse;kg;5,43;4,24;nein
+P1231;Obst Artikel 022;Obst & Gemüse;kg;2,73;2,23;nein
+P1232;Obst Artikel 023;Obst & Gemüse;kg;1,85;1,39;nein
+P1233;Obst Artikel 024;Obst & Gemüse;kg;4,33;3,29;nein
+P1234;Obst Artikel 025;Obst & Gemüse;kg;3,57;2,83;nein
+P1235;Obst Artikel 026;Obst & Gemüse;kg;5,02;3,81;nein
+P1236;Obst Artikel 027;Obst & Gemüse;kg;5,70;4,68;nein
+P1237;Obst Artikel 028;Obst & Gemüse;kg;1,52;1,18;nein
+P1238;Obst Artikel 029;Obst & Gemüse;kg;4,03;3,21;ja
+P1239;Obst Artikel 030;Obst & Gemüse;kg;6,75;5,60;ja
+P1240;Obst Artikel 031;Obst & Gemüse;kg;2,40;2,00;nein
+P1241;Obst Artikel 032;Obst & Gemüse;kg;4,05;3,28;ja
+P1242;Obst Artikel 033;Obst & Gemüse;kg;1,58;1,27;ja
+P1243;Obst Artikel 034;Obst & Gemüse;kg;5,16;4,23;nein
+P1244;Obst Artikel 035;Obst & Gemüse;kg;3,30;2,63;ja
+P1245;Non-Food Artikel 001;Non-Food & Hygiene;Packung;5,70;2,94;ja
+P1246;Non-Food Artikel 002;Non-Food & Hygiene;Packung;18,77;10,53;nein
+P1247;Non-Food Artikel 003;Non-Food & Hygiene;Packung;16,23;8,54;nein
+P1248;Non-Food Artikel 004;Non-Food & Hygiene;Packung;10,59;6,16;nein
+P1249;Non-Food Artikel 005;Non-Food & Hygiene;Packung;17,84;9,60;nein
+P1250;Non-Food Artikel 006;Non-Food & Hygiene;Packung;12,91;6,56;ja
+P1251;Non-Food Artikel 007;Non-Food & Hygiene;Packung;17,21;9,20;ja
+P1252;Non-Food Artikel 008;Non-Food & Hygiene;Packung;3,56;2,15;nein
+P1253;Non-Food Artikel 009;Non-Food & Hygiene;Packung;2,31;1,38;ja
+P1254;Non-Food Artikel 010;Non-Food & Hygiene;Packung;5,65;3,08;nein
+P1255;Non-Food Artikel 011;Non-Food & Hygiene;Packung;20,78;11,41;nein
+P1256;Non-Food Artikel 012;Non-Food & Hygiene;Packung;2,16;1,12;nein
+P1257;Non-Food Artikel 013;Non-Food & Hygiene;Packung;7,37;3,89;nein
+P1258;Non-Food Artikel 014;Non-Food & Hygiene;Packung;10,39;5,30;nein
+P1259;Non-Food Artikel 015;Non-Food & Hygiene;Packung;21,91;11,00;nein
+P1260;Non-Food Artikel 016;Non-Food & Hygiene;Packung;28,83;16,77;nein
+P1261;Non-Food Artikel 017;Non-Food & Hygiene;Packung;21,82;12,96;nein
+P1262;Non-Food Artikel 018;Non-Food & Hygiene;Packung;12,48;7,62;ja
+P1263;Non-Food Artikel 019;Non-Food & Hygiene;Packung;13,43;8,30;ja
+P1264;Non-Food Artikel 020;Non-Food & Hygiene;Packung;25,93;13,87;nein
+P1265;Non-Food Artikel 021;Non-Food & Hygiene;Packung;12,47;6,40;nein
+P1266;Non-Food Artikel 022;Non-Food & Hygiene;Packung;6,16;3,71;nein
+P1267;Non-Food Artikel 023;Non-Food & Hygiene;Packung;7,71;4,31;nein
+P1268;Non-Food Artikel 024;Non-Food & Hygiene;Packung;2,13;1,32;nein
+P1269;Non-Food Artikel 025;Non-Food & Hygiene;Packung;21,29;12,88;nein

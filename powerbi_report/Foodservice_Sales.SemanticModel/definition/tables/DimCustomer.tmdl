@@ -1,0 +1,94 @@
+table DimCustomer
+	lineageTag: e0a601d7-5fee-b49e-49c4-2e0bf7e53237
+
+	column customer_id
+		dataType: string
+		lineageTag: 4c304820-b906-22da-b719-33392603d3d5
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = User
+
+	column customer_name
+		dataType: string
+		lineageTag: ceb512e5-32d0-b91f-a2b5-3cc518f86569
+		summarizeBy: none
+		sourceColumn: customer_name
+
+		annotation SummarizationSetBy = User
+
+	column segment
+		dataType: string
+		lineageTag: 15c4994d-08e3-ab86-06c0-f9a47f0ba5d8
+		summarizeBy: none
+		sourceColumn: segment
+
+		annotation SummarizationSetBy = User
+
+	column city
+		dataType: string
+		lineageTag: 782d70e8-7556-8d9a-4052-87c0fc91f28e
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = User
+
+	column region
+		dataType: string
+		lineageTag: 80f6ff87-d41d-0eb0-2280-ef4676ea140a
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = User
+
+	column rep_id
+		dataType: string
+		isHidden
+		lineageTag: 454fdd1f-b776-ca1d-48e0-405fa1b1d574
+		summarizeBy: none
+		sourceColumn: rep_id
+
+		annotation SummarizationSetBy = User
+
+	column onboarding_date
+		dataType: dateTime
+		formatString: dd.MM.yyyy
+		lineageTag: ff3fb721-3e84-df15-3174-a3fac302684e
+		summarizeBy: none
+		sourceColumn: onboarding_date
+
+		annotation SummarizationSetBy = User
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column payment_terms_days
+		dataType: int64
+		formatString: 0
+		lineageTag: ec9ea367-3746-7bf6-a29e-91d427618eab
+		summarizeBy: none
+		sourceColumn: payment_terms_days
+
+		annotation SummarizationSetBy = User
+
+	partition DimCustomer = m
+		mode: import
+		source =
+				let
+				    Source   = Csv.Document(File.Contents(DataFolder & "customers.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Headers  = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    TrimId   = Table.TransformColumns(Headers, {{"customer_id", Text.Trim, type text}}),
+				    NoDups   = Table.Distinct(TrimId),
+				    CityMap  = {{"Muenchen", "München"}, {"münchen", "München"}, {"Koeln", "Köln"}, {"KÖLN", "Köln"}, {"Duesseldorf", "Düsseldorf"}, {"Nuernberg", "Nürnberg"}, {"Halle", "Halle (Saale)"}, {"Halle/Saale", "Halle (Saale)"}, {"Muenster", "Münster"}},
+				    FixCity  = Table.TransformColumns(NoDups, {{"city", each Translate(_, CityMap), type text}}),
+				    SegMap   = {{"Café/Bäckerei", "Café/Bakery"}, {"Kantine", "Canteen"}, {"Systemgastronomie", "Restaurant chain"}},
+				    RegMap   = {{"Nord", "North"}, {"Ost", "East"}, {"Süd", "South"}},
+				    English  = Table.TransformColumns(FixCity, {
+				                   {"segment", each Translate(_, SegMap), type text},
+				                   {"region", each Translate(_, RegMap), type text},
+				                   {"customer_name", each Text.Replace(Text.Replace(_, "Systemgastronomie", "Restaurant chain"), "Kantine", "Canteen"), type text}}),
+				    Types    = Table.TransformColumnTypes(English, {{"onboarding_date", type date}, {"payment_terms_days", Int64.Type}}, "en-US")
+				in
+				    Types
+
+	annotation PBI_ResultType = Table
+
